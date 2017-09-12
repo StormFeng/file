@@ -11,9 +11,7 @@ import {
   Text,
   View
 } from 'react-native';
-import GDMain from "./app/main/GDMain";
-import GDHome from "./app/home/GDHome";
-import GDRouter from "./app/main/GDRouter";
+import GDRouter from './app/main/GDRouter'
 
 export default class file extends Component {
     render() {
@@ -28,7 +26,6 @@ export default class file extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // backgroundColor: '#F5FCFF',
   },
 });
 

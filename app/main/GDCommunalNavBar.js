@@ -31,13 +31,13 @@ export default class GDCommunalNavBar extends Component{
     render(){
         return(
             <View style={[styles.container,this.props.barStyle]}>
-                <View>
+                <View style={styles.left}>
                     {this.renderLeftItem()}
                 </View>
-                <View>
+                <View style={styles.center}>
                     {this.renderTitleItem()}
                 </View>
-                <View>
+                <View style={styles.right}>
                     {this.renderRightItem()}
                 </View>
             </View>
@@ -53,6 +53,18 @@ GDCommunalNavBar.propTypes = {
 };
 
 const styles = StyleSheet.create({
+    left:{
+        flex:1,
+        justifyContent:'flex-start'
+    },
+    center:{
+        flex:3,
+        justifyContent:'center',
+    },
+    right:{
+        flex:1,
+        justifyContent:'flex-end'
+    },
     container:{
         width:width,
         height:Platform.OS === 'ios' ? 64:45,
@@ -60,7 +72,7 @@ const styles = StyleSheet.create({
         flexDirection:'row',
         justifyContent:'space-between',
         alignItems:'center',
-        borderBottomWidth:0.5,
+        borderBottomWidth:0.1,
         borderBottomColor:'gray',
         paddingLeft:10,
         paddingRight:10,
