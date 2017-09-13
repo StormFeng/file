@@ -11,7 +11,7 @@ export default class GDCommunalHotCell extends Component{
     render(){
         return(
             <View style={styles.container}>
-                <Image source={{uri:this.props.image}} style={styles.imageStyle}></Image>
+                <Image source={{uri:this.props.image === ''?'icon_default':this.props.image}} style={styles.imageStyle}></Image>
                 <View>
                     <Text style={styles.titleStyle}>{this.props.title}</Text>
                 </View>
@@ -43,6 +43,7 @@ const styles = StyleSheet.create({
     imageStyle:{
         width:70,
         height:70,
+        resizeMode:'contain'
     },
     arrowStyle:{
         width:10,

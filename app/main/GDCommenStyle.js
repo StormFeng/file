@@ -19,6 +19,10 @@ const styles = StyleSheet.create({
         width:18,
         height:18,
     },
+    navBarRightButton:{
+        width:22,
+        height:22,
+    },
     navBarRightText:{
         fontSize:16,
         color:'#22BB11',

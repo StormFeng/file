@@ -6,11 +6,8 @@ import {
     Image,
     StyleSheet,
 }from 'react-native';
-import GDCommunalNavBar from "../main/GDCommunalNavBar";
-import GDHalfHourHot from "./GDHalfHourHot";
 
 export default class GDHome extends Component{
-
     render(){
         return(
             <View style={{flex:1,backgroundColor:'gray'}}>

@@ -6,7 +6,6 @@ import {
     TouchableOpacity,
     Text,
     StatusBar,
-    DeviceEventEmitter
 } from 'react-native';
 import GDHome from "../home/GDHome";
 import GDHourList from "../hourlist/GDHourList";
@@ -21,8 +20,12 @@ export default class GDMain extends Component{
             selectedTab : 'tab1',
             title:'首页',
             leftItem:<TouchableOpacity
-                onPress={()=>{this.props.navigation.navigate('GDHalfHourHot',{name: 'Brent'})}}>
+                onPress={()=>{this.props.navigation.navigate('GDHalfHourHot')}}>
                 <Image style={GDCommenStyle.navBarLeftButton} source={{uri:'icon_hot'}}/>
+            </TouchableOpacity>,
+            rightItem:<TouchableOpacity
+                onPress={()=>{this.props.navigation.navigate('GDSearch')}}>
+                <Image style={GDCommenStyle.navBarRightButton} source={{uri:'icon_search'}}/>
             </TouchableOpacity>,
         }
     }
@@ -32,21 +35,32 @@ export default class GDMain extends Component{
             this.setState({ selectedTab:selectedTab });
             switch(selectedTab){
                 case 'tab1':
-                    this.setState({ title:'首页' });
                     this.setState({
+                        title:'首页',
                         leftItem:<TouchableOpacity
                             onPress={()=>{this.props.navigation.navigate('GDHalfHourHot',{name: 'Brent'})}}>
                             <Image style={GDCommenStyle.navBarLeftButton} source={{uri:'icon_hot'}}/>
-                        </TouchableOpacity>
+                        </TouchableOpacity>,
+                        rightItem:<TouchableOpacity
+                            onPress={()=>{this.props.navigation.navigate('GDSearch')}}>
+                            <Image style={GDCommenStyle.navBarRightButton} source={{uri:'icon_search'}}/>
+                        </TouchableOpacity>,
                     });
                     break;
                 case 'tab2':
-                    this.setState({ title:'海淘折扣' });
-                    this.setState({leftItem:null});
+                    this.setState({
+                        title:'海淘折扣',
+                        leftItem:null,
+                        rightItem:null,
+                    });
                     break;
                 case 'tab3':
                     this.setState({ title:'小时风云榜' });
-                    this.setState({leftItem:null});
+                    this.setState({
+                        title:'小时风云榜',
+                        leftItem:null,
+                        rightItem:null,
+                    });
                     break;
             }
         }
@@ -75,7 +89,11 @@ export default class GDMain extends Component{
     }
 
     renderLeftItem(item){
-        return(item);
+        return item;
+    }
+
+    renderRightItem(item){
+        return item;
     }
 
     render(){
@@ -86,6 +104,7 @@ export default class GDMain extends Component{
                 <GDCommunalNavBar
                     titleItem={()=>this.renderTitleItem(this.state.title)}
                     leftItem={()=>this.renderLeftItem(this.state.leftItem)}
+                    rightItem={()=>this.renderRightItem(this.state.rightItem)}
                     barStyle={{backgroundColor:Color.orange}}/>
                 <TabNavigator>
                     {this.renderItemTab("tab1","首页",'icon_home_unselect','icon_home_select',<GDHome/>)}

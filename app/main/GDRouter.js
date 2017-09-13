@@ -2,6 +2,7 @@ import React from 'react';
 import {StackNavigator} from 'react-navigation';
 import GDHome from '../home/GDHome';
 import GDHalfHourHot from '../home/GDHalfHourHot';
+import GDSearch from '../home/GDSearch';
 import GDMain from "./GDMain";
 const GDRouter = StackNavigator({
     DGMain:{
@@ -18,6 +19,12 @@ const GDRouter = StackNavigator({
     },
     GDHalfHourHot:{
         screen:GDHalfHourHot,
+        navigationOptions:{
+            headerStyle:{height:0},
+        }
+    },
+    GDSearch:{
+        screen:GDSearch,
         navigationOptions:{
             headerStyle:{height:0},
         }

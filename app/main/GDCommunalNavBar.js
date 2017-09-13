@@ -55,7 +55,7 @@ GDCommunalNavBar.propTypes = {
 const styles = StyleSheet.create({
     left:{
         flex:1,
-        justifyContent:'flex-start'
+        justifyContent:'flex-start',
     },
     center:{
         flex:3,
@@ -63,7 +63,8 @@ const styles = StyleSheet.create({
     },
     right:{
         flex:1,
-        justifyContent:'flex-end'
+        flexDirection:'row',
+        justifyContent:'flex-end',
     },
     container:{
         width:width,

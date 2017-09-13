@@ -10,6 +10,7 @@ import {
 import GDCommenStyle from "../main/GDCommenStyle";
 import GDCommunalNavBar from "../main/GDCommunalNavBar";
 import GDCommunalHotCell from "../main/GDCommunalHotCell";
+import GDNoData from "../main/GDNoData";
 import * as Color from "../main/GDCommenColor";
 export default class GDHalfHourHot extends Component{
 
@@ -17,6 +18,7 @@ export default class GDHalfHourHot extends Component{
         super(props);
         this.state={
             dataSource : new ListView.DataSource({rowHasChanged:(r1,r2)=>r1!==r2}),
+            loaded:false,
         }
     }
 
@@ -25,13 +27,33 @@ export default class GDHalfHourHot extends Component{
             .then((response)=>response.json())
             .then((result)=>{
                 this.setState({
-                    dataSource:this.state.dataSource.cloneWithRows(result.data)
+                    dataSource:this.state.dataSource.cloneWithRows(result.data),
+                    loaded:true,
                 })
             }).done();
     }
 
     componentDidMount(){
         this.fetchData();
+    }
+
+    renderListView(){
+        if(!this.state.loaded){
+            return <GDNoData/>;
+        }
+        return (
+            <ListView
+                dataSource={this.state.dataSource}
+                initialListSize={5}
+                renderHeader={this.renderHeader}
+                renderRow={this.renderRow}/>
+        );
+    }
+
+    renderHeader(){
+        return <View style={styles.topView}>
+            <Text style={styles.topText}>根据每条折扣的点击进行统计，每5分钟更新一次</Text>
+        </View>;
     }
 
     renderTitleItem(title){
@@ -65,12 +87,7 @@ export default class GDHalfHourHot extends Component{
                     titleItem={()=>this.renderTitleItem('近半小时热门')}
                     rightItem={()=>this.renderRightItem('关闭')}
                     barStyle={{backgroundColor:Color.orange}}/>
-                <View style={styles.topView}>
-                    <Text style={styles.topText}>根据每条折扣的点击进行统计，每5分钟更新一次</Text>
-                </View>
-                <ListView
-                    dataSource={this.state.dataSource}
-                    renderRow={this.renderRow}/>
+                {this.renderListView()}
             </View>
         );
     }
