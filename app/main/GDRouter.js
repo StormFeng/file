@@ -8,28 +8,30 @@ const GDRouter = StackNavigator({
     DGMain:{
         screen:GDMain,
         navigationOptions:{
-            headerStyle:{height:0},
+            header:null
         }
     },
     GDHome:{
         screen:GDHome,
         navigationOptions:{
-            headerStyle:{height:0},
+            header:null
         }
     },
     GDHalfHourHot:{
         screen:GDHalfHourHot,
         navigationOptions:{
-            headerStyle:{height:0},
+            header:null,
+            gesturesEnabled:true,
         }
     },
     GDSearch:{
         screen:GDSearch,
         navigationOptions:{
-            headerStyle:{height:0},
+            header:null,
+            gesturesEnabled:true,
         }
     },
 },{
-    initialRouteName:'DGMain'
+    initialRouteName:'DGMain',
 });
 export default GDRouter;

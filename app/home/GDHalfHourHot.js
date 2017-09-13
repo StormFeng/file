@@ -12,6 +12,7 @@ import GDCommunalNavBar from "../main/GDCommunalNavBar";
 import GDCommunalHotCell from "../main/GDCommunalHotCell";
 import GDNoData from "../main/GDNoData";
 import * as Color from "../main/GDCommenColor";
+import {PullList} from 'react-native-pull';
 export default class GDHalfHourHot extends Component{
 
     constructor(props){
@@ -22,14 +23,17 @@ export default class GDHalfHourHot extends Component{
         }
     }
 
-    fetchData(){
+    fetchData(resolve){
         fetch('http://guangdiu.com/api/gethots.php')
             .then((response)=>response.json())
             .then((result)=>{
                 this.setState({
                     dataSource:this.state.dataSource.cloneWithRows(result.data),
                     loaded:true,
-                })
+                });
+                if(resolve!==undefined){
+                    resolve();
+                }
             }).done();
     }
 
@@ -42,7 +46,8 @@ export default class GDHalfHourHot extends Component{
             return <GDNoData/>;
         }
         return (
-            <ListView
+            <PullList
+                onPullRelease={(resolve)=>this.fetchData(resolve)}
                 dataSource={this.state.dataSource}
                 initialListSize={5}
                 renderHeader={this.renderHeader}
@@ -56,18 +61,18 @@ export default class GDHalfHourHot extends Component{
         </View>;
     }
 
-    renderTitleItem(title){
+    renderTitleItem(){
         return(
             <TouchableOpacity>
-                <Text style={GDCommenStyle.navBarTitle}>{title}</Text>
+                <Text style={GDCommenStyle.navBarTitle}>近半小时热门</Text>
             </TouchableOpacity>
         );
     }
 
-    renderRightItem(item){
+    renderRightItem(){
         return(
             <TouchableOpacity onPress={()=>this.props.navigation.goBack()}>
-                <Text style={GDCommenStyle.navBarRightText}>{item}</Text>
+                <Text style={GDCommenStyle.navBarRightText}>关闭</Text>
             </TouchableOpacity>
         );
     }
@@ -84,8 +89,8 @@ export default class GDHalfHourHot extends Component{
                 <StatusBar
                     backgroundColor={Color.orange}/>
                 <GDCommunalNavBar
-                    titleItem={()=>this.renderTitleItem('近半小时热门')}
-                    rightItem={()=>this.renderRightItem('关闭')}
+                    titleItem={()=>this.renderTitleItem()}
+                    rightItem={()=>this.renderRightItem()}
                     barStyle={{backgroundColor:Color.orange}}/>
                 {this.renderListView()}
             </View>
