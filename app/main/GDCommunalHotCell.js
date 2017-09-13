@@ -33,8 +33,8 @@ const styles = StyleSheet.create({
         justifyContent:'space-between',
         backgroundColor:'white',
         padding:8,
-        borderBottomColor:'gray',
-        borderBottomWidth:0.5,
+        borderBottomColor:'#999999',
+        borderBottomWidth:0.2,
     },
     titleStyle:{
         fontSize:13,
