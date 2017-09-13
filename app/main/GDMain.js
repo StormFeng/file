@@ -10,9 +10,13 @@ import GDHourList from "../hourlist/GDHourList";
 import TabNavigatorItem from "react-native-tab-navigator/TabNavigatorItem";
 import * as Color from "../main/GDCommenColor";
 import GDCommenStyle from "../main/GDCommenStyle";
+import {NavigationActions} from 'react-navigation';
 export default class GDMain extends Component{
     constructor(props){
         super(props);
+        console.log("*********");
+        console.log(props);
+        console.log("*********");
         this.state = {
             selectedTab : 'tab1',
         }
@@ -47,7 +51,13 @@ export default class GDMain extends Component{
             </View>
         );
     }
-
 }
+const resetAction = NavigationActions.reset({
+    index: 0,
+    actions: [
+        NavigationActions.navigate({ routeName: 'GDMain'})
+    ]
+});
+
 
 

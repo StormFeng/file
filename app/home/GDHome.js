@@ -5,8 +5,9 @@ import {
     TouchableOpacity,
     Image,
     ListView,
-    ActivityIndicator
+    ActivityIndicator,
 }from 'react-native';
+import HttpBase from "../http/HttpBase";
 import GDCommunalNavBar from "../main/GDCommunalNavBar";
 import * as Color from "../main/GDCommenColor";
 import GDCommenStyle from "../main/GDCommenStyle";
@@ -26,13 +27,8 @@ export default class GDHome extends Component{
     }
 
     fetchData(resolve){
-        let formData = new FormData();
-        formData.append("count","10");
-        fetch('http://guangdiu.com/api/getlist.php',{
-            method:'POST',
-            headers:{},
-            body:formData,
-        }).then((response)=>response.json())
+        let params = {"count":5};
+        HttpBase.post('http://guangdiu.com/api/getlist.php',params)
             .then((result)=>{
                 this.setState({
                     dataSource:this.state.dataSource.cloneWithRows(result.data),
@@ -41,7 +37,7 @@ export default class GDHome extends Component{
                 if(resolve !== undefined){
                     resolve();
                 }
-            })
+            });
     }
 
     loadMore(){
