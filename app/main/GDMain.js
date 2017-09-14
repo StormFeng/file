@@ -22,13 +22,18 @@ export default class GDMain extends Component{
             selectedTab : 'tab1',
             cnBadgeText:'',
             usBadgeText:'',
+            timer:null,
         };
+    }
+
+    componentWillUnmount(){
+        clearTimeout(this.state.timer);
     }
 
     componentDidMount(){
         let cnFirstID = 0;
         let usFirstID = 0;
-        setInterval(()=>{
+        let timer = setInterval(()=>{
             AsyncStorage.getItem('cnFirstID')
                 .then((value)=>{
                     cnFirstID = parseInt(value);
@@ -53,6 +58,7 @@ export default class GDMain extends Component{
                 });
             }
         },2000);
+        this.setState({timer:timer});
     }
 
     renderItemTab(selectedTab,title,image,selectedImage,target,badgeText){
