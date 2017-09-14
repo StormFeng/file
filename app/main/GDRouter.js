@@ -4,8 +4,15 @@ import GDHome from '../home/GDHome';
 import GDHalfHourHot from '../home/GDHalfHourHot';
 import GDSearch from '../home/GDSearch';
 import GDMain from "./GDMain";
+import GDCommenunalDetail from "./GDCommenunalDetail";
 import GDLaunchPage from "./GDLaunchPage";
 const GDRouter = StackNavigator({
+    GDCommenunalDetail:{
+        screen:GDCommenunalDetail,
+        navigationOptions:{
+            header:null
+        }
+    },
     GDLaunchPage:{
         screen:GDLaunchPage,
         navigationOptions:{

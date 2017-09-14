@@ -27,6 +27,11 @@ const styles = StyleSheet.create({
         fontSize:16,
         color:'#22BB11',
         textAlign:'right'
+    },
+    navBarLeftText:{
+        fontSize:16,
+        color:'#22BB11',
+        textAlign:'left',
     }
 });
 

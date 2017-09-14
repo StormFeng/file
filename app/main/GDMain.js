@@ -14,9 +14,6 @@ import {NavigationActions} from 'react-navigation';
 export default class GDMain extends Component{
     constructor(props){
         super(props);
-        console.log("*********");
-        console.log(props);
-        console.log("*********");
         this.state = {
             selectedTab : 'tab1',
         }

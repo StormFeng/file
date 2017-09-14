@@ -16,7 +16,7 @@ export default class GDLaunchPage extends Component{
         setTimeout(()=>{
             this.props.navigation.dispatch(resetAction)
             // this.props.navigation.navigate('DGMain',{},NavigationActions.navigate({ routeName: 'GDSearch'}));
-        },3000)
+        },1000)
     }
 
     render(){

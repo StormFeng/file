@@ -51,7 +51,7 @@ export default class GDHalfHourHot extends Component{
                 dataSource={this.state.dataSource}
                 initialListSize={5}
                 renderHeader={this.renderHeader}
-                renderRow={this.renderRow}/>
+                renderRow={this.renderRow.bind(this)}/>
         );
     }
 
@@ -77,10 +77,19 @@ export default class GDHalfHourHot extends Component{
         );
     }
 
+    jumpToDetail(id){
+        this.props.navigation.navigate('GDCommenunalDetail',
+            {url:'https://guangdiu.com/api/showdetail.php?id='+id});
+    }
+
     renderRow(rowData){
-        return <GDCommunalHotCell
-            image={rowData.image}
-            title={rowData.title}/>
+        return (
+            <TouchableOpacity onPress={()=>this.jumpToDetail(rowData.id)}>
+                <GDCommunalHotCell
+                    image={rowData.image}
+                    title={rowData.title}/>
+            </TouchableOpacity>
+        );
     }
 
     render(){

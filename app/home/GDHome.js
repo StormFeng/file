@@ -6,6 +6,7 @@ import {
     Image,
     ListView,
     ActivityIndicator,
+    AsyncStorage,
 }from 'react-native';
 import HttpBase from "../http/HttpBase";
 import GDCommunalNavBar from "../main/GDCommunalNavBar";
@@ -23,25 +24,44 @@ export default class GDHome extends Component{
         this.state={
             dataSource : new ListView.DataSource({rowHasChanged:(r1,r2)=>r1!==r2}),
             loaded:false,
-        }
+        };
+        this.data = [];
+        this.loadMore = this.loadMore.bind(this);
     }
 
     fetchData(resolve){
         let params = {"count":5};
-        HttpBase.post('http://guangdiu.com/api/getlist.php',params)
+        HttpBase.post('https://guangdiu.com/api/getlist.php',params)
             .then((result)=>{
+            console.log(result);
+                this.data = this.data.concat(result.data);
                 this.setState({
-                    dataSource:this.state.dataSource.cloneWithRows(result.data),
+                    dataSource:this.state.dataSource.cloneWithRows(this.data),
                     loaded:true,
                 });
                 if(resolve !== undefined){
                     resolve();
                 }
+                let lastID = result.data[result.data.length-1].id;
+                AsyncStorage.setItem('lastID',lastID.toString());
             });
     }
 
     loadMore(){
-
+        AsyncStorage.getItem('lastID')
+            .then((value)=>{
+                let params = {"count":5,"sinceid":value};
+                HttpBase.post('https://guangdiu.com/api/getlist.php',params)
+                    .then((result)=>{
+                        this.data = this.data.concat(result.data);
+                        this.setState({
+                            dataSource:this.state.dataSource.cloneWithRows(this.data),
+                            loaded:true,
+                        });
+                        let lastID = result.data[result.data.length-1].id;
+                        AsyncStorage.setItem('lastID',lastID.toString());
+                    });
+            });
     }
 
     componentDidMount(){
@@ -58,7 +78,7 @@ export default class GDHome extends Component{
                 dataSource={this.state.dataSource}
                 initialListSize={10}
                 renderHeader={this.renderHeader}
-                renderRow={this.renderRow}
+                renderRow={this.renderRow.bind(this)}
                 onEndReachedThreshold={60}
                 onEndReached={this.loadMore}
                 renderFooter={this.renderFooter}
@@ -68,16 +88,26 @@ export default class GDHome extends Component{
 
     renderFooter(){
         return (
-            <View style={{height:100}}>
+            <View style={{height:100,flexDirection:'row',justifyContent:'center',alignItems:'center'}}>
                 <ActivityIndicator/>
+                <Text>加载更多</Text>
             </View>
         );
     }
 
+    jumpToDetail(id){
+        this.props.navigation.navigate('GDCommenunalDetail',
+            {url:'https://guangdiu.com/api/showdetail.php?id='+id});
+    }
+
     renderRow(rowData){
-        return <GDCommunalHotCell
-            image={rowData.image}
-            title={rowData.title}/>
+        return (
+            <TouchableOpacity onPress={()=>this.jumpToDetail(rowData.id)}>
+                <GDCommunalHotCell
+                    image={rowData.image}
+                    title={rowData.title}/>
+            </TouchableOpacity>
+        );
     }
 
     renderTitleItem(){
@@ -100,7 +130,7 @@ export default class GDHome extends Component{
     renderRightItem(){
         return (
             <TouchableOpacity
-                onPress={()=>{this.props.navigation.navigate('GDSearch')}}>
+                onPress={()=>this.props.navigation.navigate('GDSearch')}>
                 <Image style={GDCommenStyle.navBarRightButton} source={{uri:'icon_search'}}/>
             </TouchableOpacity>
         );
