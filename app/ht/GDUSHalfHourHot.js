@@ -13,7 +13,7 @@ import GDCommunalHotCell from "../main/GDCommunalHotCell";
 import GDNoData from "../main/GDNoData";
 import * as Color from "../main/GDCommenColor";
 import {PullList} from 'react-native-pull';
-export default class GDHalfHourHot extends Component{
+export default class GDUSHalfHourHot extends Component{
 
     constructor(props){
         super(props);
@@ -24,7 +24,10 @@ export default class GDHalfHourHot extends Component{
     }
 
     fetchData(resolve){
-        HttpBase.get('http://guangdiu.com/api/gethots.php')
+        let params = {
+            "c":"us"
+        };
+        HttpBase.get('http://guangdiu.com/api/gethots.php',params)
             .then((result)=>{
                 this.setState({
                     dataSource:this.state.dataSource.cloneWithRows(result.data),

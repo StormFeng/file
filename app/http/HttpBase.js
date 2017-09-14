@@ -48,4 +48,4 @@ HttpBase.post=function (url, params, headers) {
             .done()
     });
 };
-export default HttpBase;
+GLOBAL.HttpBase = HttpBase;

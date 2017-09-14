@@ -32,6 +32,10 @@ const styles = StyleSheet.create({
         fontSize:16,
         color:'#22BB11',
         textAlign:'left',
+    },
+    navBarTitleImage:{
+        width:66,
+        height:20,
     }
 });
 

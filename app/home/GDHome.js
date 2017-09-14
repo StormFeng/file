@@ -8,14 +8,13 @@ import {
     ActivityIndicator,
     AsyncStorage,
 }from 'react-native';
-import HttpBase from "../http/HttpBase";
 import GDCommunalNavBar from "../main/GDCommunalNavBar";
 import * as Color from "../main/GDCommenColor";
 import GDCommenStyle from "../main/GDCommenStyle";
 import {PullList} from 'react-native-pull';
 import GDNoData from "../main/GDNoData";
 import GDCommunalHotCell from "../main/GDCommunalHotCell";
-
+import RealmBase from '../storage/RealmStorage';
 
 export default class GDHome extends Component{
 
@@ -30,10 +29,10 @@ export default class GDHome extends Component{
     }
 
     fetchData(resolve){
-        let params = {"count":5};
-        HttpBase.post('https://guangdiu.com/api/getlist.php',params)
+        let params = {"count":10};
+        GLOBAL.HttpBase.post('https://guangdiu.com/api/getlist.php',params)
             .then((result)=>{
-            console.log(result);
+                this.data = [];
                 this.data = this.data.concat(result.data);
                 this.setState({
                     dataSource:this.state.dataSource.cloneWithRows(this.data),
@@ -42,24 +41,37 @@ export default class GDHome extends Component{
                 if(resolve !== undefined){
                     resolve();
                 }
-                let lastID = result.data[result.data.length-1].id;
-                AsyncStorage.setItem('lastID',lastID.toString());
+                let cnLastID = result.data[result.data.length-1].id;
+                AsyncStorage.setItem('cnLastID',cnLastID.toString());
+                let cnFirstID = result.data[0].id;
+                AsyncStorage.setItem('cnFirstID',cnFirstID.toString());
+                RealmBase.removeAll('HomeData');
+                RealmBase.write('HomeData',result.data);
+            })
+            .catch((error)=>{
+            console.log('eeeeeeeeeeeeeeeeeeee');
+            console.log(error);
+                this.data = RealmBase.loadAll('HomeData');
+                this.setState({
+                    dataSource:this.state.dataSource.cloneWithRows(this.data),
+                    loaded:true,
+                });
             });
     }
 
     loadMore(){
-        AsyncStorage.getItem('lastID')
+        AsyncStorage.getItem('cnLastID')
             .then((value)=>{
-                let params = {"count":5,"sinceid":value};
-                HttpBase.post('https://guangdiu.com/api/getlist.php',params)
+                let params = {"count":10,"sinceid":value};
+                GLOBAL.HttpBase.post('https://guangdiu.com/api/getlist.php',params)
                     .then((result)=>{
                         this.data = this.data.concat(result.data);
                         this.setState({
                             dataSource:this.state.dataSource.cloneWithRows(this.data),
                             loaded:true,
                         });
-                        let lastID = result.data[result.data.length-1].id;
-                        AsyncStorage.setItem('lastID',lastID.toString());
+                        let cnLastID = result.data[result.data.length-1].id;
+                        AsyncStorage.setItem('cnLastID',cnLastID.toString());
                     });
             });
     }
@@ -76,7 +88,7 @@ export default class GDHome extends Component{
             <PullList
                 onPullRelease={(resolve)=>this.fetchData(resolve)}
                 dataSource={this.state.dataSource}
-                initialListSize={10}
+                initialListSize={8}
                 renderHeader={this.renderHeader}
                 renderRow={this.renderRow.bind(this)}
                 onEndReachedThreshold={60}
@@ -113,7 +125,7 @@ export default class GDHome extends Component{
     renderTitleItem(){
         return(
             <TouchableOpacity>
-                <Text style={GDCommenStyle.navBarTitle}>首页</Text>
+                <Image source={{uri:'navtitle_home_down'}} style={GDCommenStyle.navBarTitleImage}/>
             </TouchableOpacity>
         );
     }

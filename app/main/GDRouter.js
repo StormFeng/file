@@ -2,11 +2,32 @@ import React from 'react';
 import {StackNavigator} from 'react-navigation';
 import GDHome from '../home/GDHome';
 import GDHalfHourHot from '../home/GDHalfHourHot';
-import GDSearch from '../home/GDSearch';
+import GDSearch from './GDSearch';
+import GDHt from '../ht/GDHt';
+import GDUSHalfHourHot from '../ht/GDUSHalfHourHot';
+import GDHourList from '../hourlist/GDHourList';
 import GDMain from "./GDMain";
 import GDCommenunalDetail from "./GDCommenunalDetail";
 import GDLaunchPage from "./GDLaunchPage";
 const GDRouter = StackNavigator({
+    GDUSHalfHourHot:{
+        screen:GDUSHalfHourHot,
+        navigationOptions:{
+            header:null
+        }
+    },
+    GDHourList:{
+        screen:GDHourList,
+        navigationOptions:{
+            header:null
+        }
+    },
+    GDHt:{
+        screen:GDHt,
+        navigationOptions:{
+            header:null
+        }
+    },
     GDCommenunalDetail:{
         screen:GDCommenunalDetail,
         navigationOptions:{
