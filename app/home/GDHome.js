@@ -13,7 +13,7 @@ import * as Color from "../main/GDCommenColor";
 import GDCommenStyle from "../main/GDCommenStyle";
 import {PullList} from 'react-native-pull';
 import GDNoData from "../main/GDNoData";
-import GDCommunalHotCell from "../main/GDCommunalHotCell";
+import GDCommunalCell from "../main/GDCommunalCell";
 import RealmBase from '../storage/RealmStorage';
 
 export default class GDHome extends Component{
@@ -30,7 +30,7 @@ export default class GDHome extends Component{
 
     fetchData(resolve){
         let params = {"count":10};
-        GLOBAL.HttpBase.post('https://guangdiu.com/api/getlist.php',params)
+        HttpBase.post('https://guangdiu.com/api/getlist.php',params)
             .then((result)=>{
                 this.data = [];
                 this.data = this.data.concat(result.data);
@@ -49,8 +49,6 @@ export default class GDHome extends Component{
                 RealmBase.write('HomeData',result.data);
             })
             .catch((error)=>{
-            console.log('eeeeeeeeeeeeeeeeeeee');
-            console.log(error);
                 this.data = RealmBase.loadAll('HomeData');
                 this.setState({
                     dataSource:this.state.dataSource.cloneWithRows(this.data),
@@ -63,7 +61,7 @@ export default class GDHome extends Component{
         AsyncStorage.getItem('cnLastID')
             .then((value)=>{
                 let params = {"count":10,"sinceid":value};
-                GLOBAL.HttpBase.post('https://guangdiu.com/api/getlist.php',params)
+                HttpBase.post('https://guangdiu.com/api/getlist.php',params)
                     .then((result)=>{
                         this.data = this.data.concat(result.data);
                         this.setState({
@@ -115,7 +113,10 @@ export default class GDHome extends Component{
     renderRow(rowData){
         return (
             <TouchableOpacity onPress={()=>this.jumpToDetail(rowData.id)}>
-                <GDCommunalHotCell
+                <GDCommunalCell
+                    pubtime={rowData.pubtime}
+                    fromsite={rowData.fromsite}
+                    mall={rowData.mall}
                     image={rowData.image}
                     title={rowData.title}/>
             </TouchableOpacity>

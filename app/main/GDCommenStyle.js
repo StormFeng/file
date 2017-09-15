@@ -10,10 +10,17 @@ const styles = StyleSheet.create({
         width:Platform.OS==='ios' ? 25 : 20,
         height:Platform.OS==='ios' ? 25 : 20,
     },
+    navBar:{
+        backgroundColor:'#F6533E'
+    },
     navBarTitle:{
         fontSize:18,
         color:'white',
         textAlign:'center'
+    },
+    navBarLeft:{
+        flexDirection:'row',
+        alignItems:'center',
     },
     navBarLeftButton:{
         width:18,
@@ -25,12 +32,12 @@ const styles = StyleSheet.create({
     },
     navBarRightText:{
         fontSize:16,
-        color:'#22BB11',
+        color:'white',
         textAlign:'right'
     },
     navBarLeftText:{
         fontSize:16,
-        color:'#22BB11',
+        color:'white',
         textAlign:'left',
     },
     navBarTitleImage:{

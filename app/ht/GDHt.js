@@ -13,7 +13,7 @@ import * as Color from "../main/GDCommenColor";
 import GDCommenStyle from "../main/GDCommenStyle";
 import {PullList} from 'react-native-pull';
 import GDNoData from "../main/GDNoData";
-import GDCommunalHotCell from "../main/GDCommunalHotCell";
+import GDCommunalCell from "../main/GDCommunalCell";
 
 
 export default class GDHt extends Component{
@@ -111,7 +111,10 @@ export default class GDHt extends Component{
     renderRow(rowData){
         return (
             <TouchableOpacity onPress={()=>this.jumpToDetail(rowData.id)}>
-                <GDCommunalHotCell
+                <GDCommunalCell
+                    pubtime={rowData.pubtime}
+                    fromsite={rowData.fromsite}
+                    mall={rowData.mall}
                     image={rowData.image}
                     title={rowData.title}/>
             </TouchableOpacity>
