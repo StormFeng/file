@@ -4,7 +4,8 @@ import {
     StyleSheet,
     View,
     Text,
-    TouchableOpacity
+    TouchableOpacity,
+    Image
 } from 'react-native';
 import * as Color from "../main/GDCommenColor";
 import GDCommunalNavBar from "./GDCommunalNavBar";
@@ -14,14 +15,18 @@ export default class GDCommenualDetail extends Component{
         super(props);
         this.renderLeftItem = this.renderLeftItem.bind(this);
         this.renderTitleItem = this.renderTitleItem.bind(this);
-        console.log(props);
     }
 
     renderLeftItem(){
         return(
-            <TouchableOpacity onPress={()=>this.props.navigation.goBack()}>
-                <Text style={GDCommenStyle.navBarLeftText}>返回</Text>
-            </TouchableOpacity>
+            <View>
+                <TouchableOpacity
+                    onPress={()=>this.props.navigation.goBack()}
+                    style={GDCommenStyle.navBarLeft}>
+                    <Image source={{uri:'icon_back_white'}} style={GDCommenStyle.navBarLeftButton}/>
+                    <Text style={GDCommenStyle.navBarLeftText}>返回</Text>
+                </TouchableOpacity>
+            </View>
         );
     }
 

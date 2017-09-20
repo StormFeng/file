@@ -49,7 +49,7 @@ export default class GDCommunalHotCell extends Component{
                     </View>
                     <View style={styles.detailViewStyle}>
                         <Text style={styles.mallTextStyle}>{this.props.mall}</Text>
-                        <Text style={styles.timeTextStyle}>{this.formatTime(this.props.pubtime,this.props.fromsite)}</Text>
+                        <Text style={styles.timeTextStyle}>{'haoa'}</Text>
                     </View>
                 </View>
                 <Image source={{uri:'icon_arrow_r'}} style={styles.arrowStyle}></Image>
