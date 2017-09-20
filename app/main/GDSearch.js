@@ -17,7 +17,10 @@ import GDCommunalCell from "./GDCommunalCell";
 import GDCommenEmptyView from "./GDCommenEmptyView";
 import GDCommenLoadingMoreView from "./GDCommenLoadingMoreView";
 import * as GDCommenColor from "./GDCommenColor";
+
 const {width,height} = Dimensions.get('window');
+const dismissKeyboard = require('dismissKeyboard');
+
 export default class GDSearch extends Component{
     constructor(props){
         super(props);
@@ -330,7 +333,7 @@ export default class GDSearch extends Component{
                             onEndEditing={()=>{this._loadData()}}
                             style={styles.textInputStyle}/>
                     </View>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={()=>dismissKeyboard()}>
                         <Text style={styles.textCancelStyle}>取消</Text>
                     </TouchableOpacity>
                 </View>
