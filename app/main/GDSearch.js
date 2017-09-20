@@ -211,7 +211,7 @@ export default class GDSearch extends Component{
         });
         if(this.changeText !== '') {
             let params = {
-                "count": 5,
+                "count": 10,
                 "q": this.changeText,
             };
             HttpBase.get('http://guangdiu.com/api/getresult.php', params)
@@ -222,7 +222,7 @@ export default class GDSearch extends Component{
                         isLoading: false,
                         error: false,
                     });
-                    if(result.data.length<5){
+                    if(result.data.length<10){
                         this.setState({hasMoreData:false});
                     }else{
                         this.setState({hasMoreData:true});
@@ -247,7 +247,7 @@ export default class GDSearch extends Component{
         });
         if(this.changeText !== '') {
             let params = {
-                "count": 5,
+                "count": 10,
                 "q": this.changeText,
             };
             HttpBase.get('http://guangdiu.com/api/getresult.php', params)
@@ -257,7 +257,7 @@ export default class GDSearch extends Component{
                         refreshing: false,
                         error: false,
                     });
-                    if(result.data.length<5){
+                    if(result.data.length<10){
                         this.setState({hasMoreData:false});
                     }else{
                         this.setState({hasMoreData:true});
@@ -283,7 +283,7 @@ export default class GDSearch extends Component{
                 .then((value)=>{
                     if(this.changeText !== '') {
                         let params = {
-                            "count": 5,
+                            "count": 10,
                             "q": this.changeText,
                             'sinceid':value,
                         };
@@ -294,7 +294,7 @@ export default class GDSearch extends Component{
                                     isLoading: false,
                                     error: false,
                                 });
-                                if(result.data.length<5){
+                                if(result.data.length<10){
                                     this.setState({hasMoreData:false});
                                 }else{
                                     this.setState({hasMoreData:true});
