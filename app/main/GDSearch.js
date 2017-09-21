@@ -9,7 +9,7 @@ import {
     Dimensions,
     ActivityIndicator,
     FlatList,
-    AsyncStorage
+    AsyncStorage,
 } from 'react-native';
 import GDCommunalNavBar from "./GDCommunalNavBar";
 import GDCommenStyle from "./GDCommenStyle";

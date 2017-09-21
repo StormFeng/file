@@ -7,14 +7,17 @@ import {
     ListView,
     ActivityIndicator,
     AsyncStorage,
+    Modal,
 }from 'react-native';
 import GDCommunalNavBar from "../main/GDCommunalNavBar";
 import * as Color from "../main/GDCommenColor";
 import GDCommenStyle from "../main/GDCommenStyle";
 import {PullList} from 'react-native-pull';
 import GDNoData from "../main/GDNoData";
+import GDCommunalSiftMenu from "../main/GDCommunalSiftMenu";
 import GDCommunalCell from "../main/GDCommunalCell";
 import RealmBase from '../storage/RealmStorage';
+import HomeData from '../data/HomeData.json';
 
 export default class GDHome extends Component{
 
@@ -23,6 +26,7 @@ export default class GDHome extends Component{
         this.state={
             dataSource : new ListView.DataSource({rowHasChanged:(r1,r2)=>r1!==r2}),
             loaded:false,
+            modalVisible:false,
         };
         this.data = [];
         this.loadMore = this.loadMore.bind(this);
@@ -123,9 +127,13 @@ export default class GDHome extends Component{
         );
     }
 
+    setModalVisible(visible){
+        this.setState({modalVisible:visible});
+    }
+
     renderTitleItem(){
         return(
-            <TouchableOpacity>
+            <TouchableOpacity onPress={()=>this.setModalVisible(!this.state.modalVisible)}>
                 <Image source={{uri:'navtitle_home_down'}} style={GDCommenStyle.navBarTitleImage}/>
             </TouchableOpacity>
         );
@@ -157,6 +165,16 @@ export default class GDHome extends Component{
                     leftItem={()=>this.renderLeftItem()}
                     rightItem={()=>this.renderRightItem()}
                     barStyle={{backgroundColor:Color.orange}}/>
+                <Modal
+                    animationType={"fade"}
+                    transparent={true}
+                    visible={this.state.modalVisible}
+                    onRequestClose={() => this.setModalVisible(!this.state.modalVisible)}>
+                    <GDCommunalSiftMenu
+                        hideModal={() => this.setModalVisible(!this.state.modalVisible)}
+                        data={HomeData}
+                    />
+                </Modal>
                 {this.renderListView()}
             </View>
         )

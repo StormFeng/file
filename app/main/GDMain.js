@@ -19,7 +19,7 @@ export default class GDMain extends Component{
     constructor(props){
         super(props);
         this.state = {
-            selectedTab : 'tab2',
+            selectedTab : 'tab1',
             cnBadgeText:'',
             usBadgeText:'',
             timer:null,
