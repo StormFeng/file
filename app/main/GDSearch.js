@@ -71,8 +71,7 @@ export default class GDSearch extends Component{
             <View style={styles.loadingViewStyle}>
                 <ActivityIndicator
                     size="large"
-                    color={GDCommenColor.orange}
-                />
+                    color={GDCommenColor.orange}/>
             </View>
         );
     }

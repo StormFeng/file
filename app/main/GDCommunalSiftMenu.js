@@ -21,7 +21,7 @@ export default class GDCommunalSiftMenu extends Component{
 
     renderItem({item}){
         return (
-            <TouchableOpacity onPress={this.props.hideModal}>
+            <TouchableOpacity onPress={() => this.props.refreshData(item.mall,item.cate)}>
                 <View style={styles.itemViewStyle}>
                     <Image source={{uri:item.image}} style={styles.itemImageStyle}/>
                     <Text>{item.title}</Text>
@@ -67,6 +67,7 @@ export default class GDCommunalSiftMenu extends Component{
 GDCommunalSiftMenu.propTypes= {
     hideModal:PropTypes.func,
     data:PropTypes.array,
+    refreshData:PropTypes.func,
 };
 
 const styles = StyleSheet.create({

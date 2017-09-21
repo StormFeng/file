@@ -6,7 +6,7 @@ import {
     ActivityIndicator,
 }from 'react-native'
 
-export default class GDCommenEmptyView extends Component{
+export default class GDCommenLoadingMoreView extends Component{
     render() {
         return (
             <View style={styles.container}>
@@ -16,10 +16,6 @@ export default class GDCommenEmptyView extends Component{
         );
     }
 }
-
-GDCommenEmptyView.propTypes={
-    title:PropTypes.string,
-};
 
 const styles = StyleSheet.create({
     container:{
