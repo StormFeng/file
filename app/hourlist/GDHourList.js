@@ -231,6 +231,11 @@ export default class GDHourList extends Component{
         </TouchableOpacity>
     }
 
+    renderTitleItem(){
+        return(
+            <Text style={GDCommenStyle.navBarTitle}>小时风云榜</Text>
+        );
+    }
 
 }
 
